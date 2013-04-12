@@ -6,5 +6,4 @@ from comphyle.repo import generate_metadata, pick_config_file
 repo = "/home/tag/git/test.git"
 
 config = pick_config_file("debian", repo, "debian/comphyle")
-print config
-print generate_metadata("/home/tag/git/test.git", "test/__init__.py")
+print generate_metadata(repo, config['RootInit'])
