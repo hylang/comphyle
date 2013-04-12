@@ -39,9 +39,9 @@
   (.findall re "__version__ = \"(?P<version>.*)\"" init.data))
 
 
-(defn generate-metadata [path init]
+(defn generate-metadata [path config]
   (setf (, chash who ctime) (get-last-commit path))
-  (setf version (get (get-repo-version path init) 0))
+  (setf version (get (get-repo-version path (get config "RootInit")) 0))
   (setf the-time (.strftime ctime "%Y%m%d"))
   (setf debstring (kwapply (.format "{version}+{when}.1.{hash}")
                            {"version" version
@@ -50,4 +50,5 @@
   {"hash" chash
    "author" who
    "when" ctime
-   "version" debstring})
+   "version" debstring
+   "config" config})
