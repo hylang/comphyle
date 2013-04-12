@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 
+import sys
 import hy
+
 from comphyle.repo import generate_metadata, pick_config_file
 
-repo = "/home/tag/git/test.git"
+repo = sys.argv[1]
 
-config = pick_config_file("debian", repo, "debian/comphyle")
-print generate_metadata(repo, config)
+print generate_metadata(
+    repo,
+    pick_config_file("debian", repo, "debian/comphyle"))
