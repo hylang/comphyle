@@ -1,3 +1,4 @@
+; (import-from contextlib contextmanagr)
 
 
 (defn parse-rfc822 [fd]
@@ -16,3 +17,24 @@
           (assoc bits key (+ (get bits key) "\n"))
           (assoc bits key (+ (get bits key) "\n" (.strip line)))))))
   bits)
+
+
+;; to port
+;; @contextmanager
+;; def cd(path):
+;;     old_dir = os.getcwd()
+;;     os.chdir(path)
+;;     try:
+;;         yield
+;;     finally:
+;;         os.chdir(old_dir)
+;; 
+;; 
+;; @contextmanager
+;; def tmpdir():
+;;     path = tempfile.mkdtemp()
+;;     try:
+;;         yield path
+;;     finally:
+;;         pass
+;;     rmdir(path)
