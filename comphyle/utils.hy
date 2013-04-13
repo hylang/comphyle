@@ -24,9 +24,9 @@
   ret)
 
 
-;http://archive.pault.ag/dists/wicked/main/binary-i386/
 (defn read-repo-contents [repo suite section arch]
-  (setf url (.format "{0}/dists/{1}/{2}/binary-{3}/Packages" repo suite section arch))
+  (setf url (.format "{0}/dists/{1}/{2}/binary-{3}/Packages"
+                     repo suite section arch))
   (setv req (.get requests url))
   (if (!= req.status_code 200)
     (throw (IOError "Site sucks.")))
