@@ -5,6 +5,7 @@ import hy
 
 from comphyle.repo import generate_metadata, pick_config_file
 from comphyle.utils import read_repo_contents
+from comphyle.native import V
 
 # repo = sys.argv[1]
 # print generate_metadata(repo, pick_config_file(
@@ -13,4 +14,8 @@ from comphyle.utils import read_repo_contents
 #     "debian/comphyle"
 # )[0])
 
-print map(lambda x: x['Version'], read_repo_contents("http://archive.pault.ag", "wicked", "main", "i386"))
+vs = map(lambda x: V(x['Version']),
+         read_repo_contents(
+             "http://archive.pault.ag", "wicked", "main", "i386"))
+
+print sorted(vs)
