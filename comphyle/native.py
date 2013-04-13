@@ -1,6 +1,5 @@
-#XXX: We need to move shit out of here.
-
 from contextlib import contextmanager
+
 from sh import dpkg
 import sh
 
@@ -30,7 +29,6 @@ def tmpwork():
     with tmpdir() as tmp_path:
         with cd(tmp_path):
             yield tmp_path
-
 
 
 class V(object):
