@@ -4,8 +4,10 @@ import sys
 import hy
 
 from comphyle.repo import generate_metadata, pick_config_file
+from comphyle.utils import cd
 
 repo = sys.argv[1]
+
 
 print generate_metadata(repo, pick_config_file(
     "debian",

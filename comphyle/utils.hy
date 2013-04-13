@@ -21,9 +21,16 @@
           (if (= (.strip line) ".")
             (assoc bits key (+ (get bits key) "\n"))
             (assoc bits key (+ (get bits key) "\n" (.strip line))))))))
-  (if (!= bits {})
-    (.append ret bits))
+  (if (!= bits {}) (.append ret bits))
   ret)
+
+
+; XXX: blocked by finally PR from @jd
+;(decorate-with contextmanager
+;(defn cd [path]
+;  (setf old-dir (.getcwd os))
+;  (.chdir os path)
+;  (try (yield) (finally (.chdir os old-dir)))))
 
 
 ;; to port
