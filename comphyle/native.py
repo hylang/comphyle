@@ -55,19 +55,19 @@ class V(object):
         return self._cmp("lt", other)
 
     def __le__(self, other):
-        return self._cmp("lt", other)
+        return self._cmp("le", other)
 
     def __eq__(self, other):
-        return self._cmp("lt", other)
+        return self._cmp("eq", other)
 
     def __ne__(self, other):
-        return self._cmp("lt", other)
+        return self._cmp("ne", other)
 
     def __gt__(self, other):
-        return self._cmp("lt", other)
+        return self._cmp("gt", other)
 
     def __ge__(self, other):
-        return self._cmp("lt", other)
+        return self._cmp("ge", other)
 
     def __repr__(self):
         return "<comhyle V - %s>" % (self.version_string)
