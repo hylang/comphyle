@@ -7,5 +7,8 @@ from comphyle.repo import generate_metadata, pick_config_file
 
 repo = sys.argv[1]
 
-print generate_metadata(repo,
-    pick_config_file("debian", repo, "debian/comphyle"))
+print generate_metadata(repo, pick_config_file(
+    "debian",
+    repo,
+    "debian/comphyle"
+)[0])
