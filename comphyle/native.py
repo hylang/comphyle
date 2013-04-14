@@ -3,6 +3,10 @@ from contextlib import contextmanager
 from sh import dpkg
 import sh
 
+import tempfile
+import shutil
+import os
+
 
 @contextmanager
 def cd(path):
@@ -12,6 +16,10 @@ def cd(path):
         yield
     finally:
         os.chdir(old_dir)
+
+
+def rmdir(path):
+    return shutil.rmtree(path)
 
 
 @contextmanager

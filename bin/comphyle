@@ -1,0 +1,10 @@
+#!/usr/bin/env python
+
+import sys
+import hy
+
+from comphyle.repo import workon_repo
+
+repo = sys.argv[1]
+
+workon_repo(repo, "debian", "debian/comphyle")

@@ -1,8 +1,12 @@
 (import-from dulwich.repo Repo)
 (import-from datetime datetime)
+(import-from sh git dpkg-buildpackage)
 (import re)
+(import os)
 
 (import-from comphyle.utils parse-rfc822 needs-build)
+(import-from comphyle.native tmpwork)
+(import-from comphyle.jinja render_fd)
 
 
 (defn get-last-commit [path]
@@ -63,3 +67,22 @@
                                                  "Suite"
                                                  "Section"]]))
   (needs-build archive suite section meta))
+
+
+(defn render-package [context]
+  (for [entries (.walk os "debian")]
+    (setf (, dirpath dirnames filenames) entries)
+    (for [fpath filenames]
+      (if (.endswith fpath "jinja2")
+        (render_fd (.join os.path dirpath fpath) context)))))
+
+
+(defn workon-repo [path branch compfile]
+  (setf path (.abspath os.path path))
+  (setf meta (generate-metadata path (get (pick-config-file
+                                            branch path compfile) 0)))
+  (with [t-pth (tmpwork)]
+        (.clone git path)
+        (.chdir os (.replace (.basename os.path path) ".git" ""))
+        (.merge git "origin/debian" "--no-edit")
+        (render-package meta)))
