@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e
+
+REPO="/home/tag/git/hy.git"
+
+./bin/needs-build ${REPO}
+./bin/comphyle ${REPO}
