@@ -15,5 +15,4 @@ def render_fd(fpath, ctx):
   t = Template(open(fpath, "r").read())
   ctx['rfc_2822_date'] = rfc_2822(ctx['when'])
   open(output_name, "w").write(t.render(**ctx))
-  print open(output_name, 'r').read()
   os.unlink(fpath)

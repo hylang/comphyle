@@ -1,6 +1,9 @@
 (import-from dulwich.repo Repo)
 (import-from datetime datetime)
 (import-from sh git dpkg-buildpackage)
+(import-from dput upload)
+
+(import glob)
 (import re)
 (import os)
 
@@ -88,4 +91,8 @@
         (.checkout git branch)
         (assoc meta "branch" branch)
         (.merge git "origin/debian" "--no-edit")
-        (render-package meta)))
+        (render-package meta)
+        (dpkg-buildpackage "-us" "-uc")
+        (.chdir os "..")
+        (upload (get (.glob glob "*changes") 0)
+                (get (get meta "config") "DputTarget"))))
