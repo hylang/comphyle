@@ -1,4 +1,8 @@
+(import-from StringIO StringIO)
+(import-from comphyle.native V)
+
 (import requests)
+(import gzip)
  
 
 (defn parse-rfc822 [fd]
@@ -24,10 +28,25 @@
   ret)
 
 
-(defn read-repo-contents [repo suite section arch]
-  (setf url (.format "{0}/dists/{1}/{2}/binary-{3}/Packages"
-                     repo suite section arch))
+(defn read-repo-contents [repo suite section]
+  (setf url (.format "{0}/dists/{1}/{2}/source/Sources.gz"
+                     repo suite section))
   (setv req (.get requests url))
   (if (!= req.status_code 200)
     (throw (IOError "Site sucks.")))
-  (parse-rfc822 (.splitlines req.text)))
+
+  (parse-rfc822 (.splitlines (.read (kwapply (.GzipFile gzip)
+                                {"fileobj" (StringIO req.content)})))))
+
+
+(defn needs-build [repo suite section config]
+  (def remote (filter (lambda [x] (= (get x "Package")
+                                     (get (get config "config") "Source")))
+                              (read-repo-contents repo suite section)))
+  (if (= remote [])
+    true
+    (do
+      (setf versions (map (lambda [x] (V (get x "Version"))) remote))
+      (if (> (V (get config "version")) (max versions))
+        true
+        false))))
