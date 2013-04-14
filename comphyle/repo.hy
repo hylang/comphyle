@@ -84,5 +84,8 @@
   (with [t-pth (tmpwork)]
         (.clone git path)
         (.chdir os (.replace (.basename os.path path) ".git" ""))
+        (setf branch (get (get meta "config") "BuildBranch"))
+        (.checkout git branch)
+        (assoc meta "branch" branch)
         (.merge git "origin/debian" "--no-edit")
         (render-package meta)))
