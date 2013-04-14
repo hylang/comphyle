@@ -47,6 +47,4 @@
     true
     (do
       (setf versions (map (lambda [x] (V (get x "Version"))) remote))
-      (if (> (V (get config "version")) (max versions))
-        true
-        false))))
+      (if (> (V (get config "version")) (max versions)) true false))))

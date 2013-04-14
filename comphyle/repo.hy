@@ -2,7 +2,7 @@
 (import-from datetime datetime)
 (import re)
 
-(import-from comphyle.utils parse-rfc822)
+(import-from comphyle.utils parse-rfc822 needs-build)
 
 
 (defn get-last-commit [path]
@@ -52,3 +52,14 @@
    "when" ctime
    "version" debstring
    "config" config})
+
+
+(defn check-build [repo branch compfile]
+  (setf meta (generate-metadata
+               repo
+               (get (pick-config-file branch repo compfile) 0)))
+  (setf (, archive suite section) (list-comp (get (get meta "config") x)
+                                             [x ["ArchiveUrl"
+                                                 "Suite"
+                                                 "Section"]]))
+  (needs-build archive suite section meta))

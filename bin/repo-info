@@ -3,15 +3,7 @@
 import sys
 import hy
 
-from comphyle.repo import generate_metadata, pick_config_file
-from comphyle.utils import needs_build
+from comphyle.repo import check_build
 
 repo = sys.argv[1]
-meta = generate_metadata(repo, pick_config_file(
-    "debian",
-    repo,
-    "debian/comphyle"
-)[0])
-
-vs = needs_build("http://archive.pault.ag", "wicked", "main", meta)
-print vs
+print check_build(repo, "debian", "debian/comphyle")
