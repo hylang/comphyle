@@ -33,7 +33,7 @@
                      repo suite section))
   (setv req (.get requests url))
   (if (!= req.status_code 200)
-    (throw (IOError "Site sucks.")))
+    (throw (IOError "site sux" url)))
 
   (parse-rfc822 (.splitlines (.read (kwapply (.GzipFile gzip)
                                 {"fileobj" (StringIO req.content)})))))
