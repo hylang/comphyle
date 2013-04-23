@@ -11,8 +11,8 @@ def rfc_2822(dateobj):
 
 
 def render_fd(fpath, ctx):
-  output_name = fpath.replace(".jinja2", "")
-  t = Template(open(fpath, "r").read())
-  ctx['rfc_2822_date'] = rfc_2822(ctx['when'])
-  open(output_name, "w").write(t.render(**ctx))
-  os.unlink(fpath)
+    output_name = fpath.replace(".jinja2", "")
+    t = Template(open(fpath, "r").read())
+    ctx['rfc_2822_date'] = rfc_2822(ctx['when'])
+    open(output_name, "w").write(t.render(**ctx))
+    os.unlink(fpath)
